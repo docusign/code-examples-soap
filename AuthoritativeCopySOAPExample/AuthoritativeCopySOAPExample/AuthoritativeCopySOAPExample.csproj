@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{987C0345-56D8-4D47-A5C2-4EB756B2F6CD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AuthoritativeCopySOAPExample</RootNamespace>
+    <AssemblyName>AuthoritativeCopySOAPExample</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\DocuSignSoapApi\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AccountMembershipFeaturesList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AccountSetting.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AcknowledgeAuthoritativeCopyExportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AddressBookItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AuthoritativeCopyExportDocuments.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AuthoritativeCopyExportStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.AvailableFolders.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.BrandResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.CaptiveRecipientResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.ConnectFailure.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.CorrectionStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.DocumentPDFs.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.DocuSignEnvelopeInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.Envelope.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopeAuditEvent.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopePDF.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopeStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopeTemplate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopeTemplateDefinition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.EnvelopeV2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.FilteredEnvelopeStatusChanges.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.FilteredEnvelopeStatuses.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.FolderResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.GetAccountSettingsListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.GetAuthoritativeCopyExportKeyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.GetSharedAccessResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.PublishConnectFailuresResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.PurgeDocumentStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.RecipientEsignList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.RecipientList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.RequestTemplatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.SaveTemplateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.SetSharedAccessResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.SynchEnvelopeStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.TransferEnvelopeStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.UpdateAddressBookResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\AuthoritativeCopySOAPExample.DocuSignSoapApi.VoidEnvelopeStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DocuSignSoapApi\dsapi.wsdl" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\DocuSignSoapApi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DocuSignSoapApi\dsapi.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DocuSignSoapApi\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DocuSignSoapApi\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DocuSignSoapApi\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

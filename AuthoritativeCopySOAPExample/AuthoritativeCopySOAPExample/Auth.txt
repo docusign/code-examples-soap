@@ -1,0 +1,152 @@
+﻿using System;
+//using System.Windows.Forms;
+using ConsoleAppDocuSignSoap.DocuSignSoapApi;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.IO;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Configuration;
+using System.Threading.Tasks;
+
+namespace ConsoleAppDocuSignSoap
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Console.WriteLine("Hello World!");
+            AuthCopyFlow("a234aa2d-b1f8-4414-a5d9-46e01a558755");
+
+        }
+
+        public static void AuthCopyFlow(string envelopeId)
+        {
+            string userName = "geoffp.dstest@gmail.com";
+            string password = "Tester";
+            string integratorKey = "9e1d5046-8888-430d-9b48-8491fb69461c";
+            string accountId = "fadfa7dc-f6f4-40be-aa4a-5b4905187ab1";
+
+
+
+
+            String auth = "<DocuSignCredentials><Username>" + userName
+            + "</Username><Password>" + password
+            + "</Password><IntegratorKey>" + integratorKey
+            + "</IntegratorKey></DocuSignCredentials>";
+
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            APIServiceSoapClient client = new APIServiceSoapClient();
+
+
+            using (OperationContextScope scope = new System.ServiceModel.OperationContextScope(client.InnerChannel))
+            {
+                HttpRequestMessageProperty httpRequestProperty = new HttpRequestMessageProperty();
+                httpRequestProperty.Headers.Add("X-DocuSign-Authentication", auth);
+                OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = httpRequestProperty;
+
+
+                if (envelopeId.Trim().Length == 36)
+                {
+                    string CRLF = "\r\n";
+                    try
+                    {
+
+                        AuthoritativeCopyExportDocuments docs = client.ExportAuthoritativeCopy(envelopeId);
+
+                        //Concatenate the byte arrays
+                        byte[] doc1 = docs.DocumentPDF[0].PDFBytes;
+                        byte[] doc2 = docs.DocumentPDF[1].PDFBytes;
+
+                        var s = new MemoryStream();
+                        s.Write(doc1, 0, doc1.Length);
+                        s.Write(doc2, 0, doc2.Length);
+                        var bigByteArray = s.ToArray();
+
+
+                        int size = bigByteArray.Length;
+
+                        byte[] data = new byte[size];
+
+                        data = bigByteArray;
+
+                        System.Security.Cryptography.SHA1 sha = new SHA1CryptoServiceProvider();
+
+                        byte[] result;
+                        result = sha.ComputeHash(data);
+
+                        AuthoritativeCopyExportStatus status = client.AcknowledgeAuthoritativeCopyExport(envelopeId.Trim(), docs.TransactionId, result);
+                        string key = status.ExportKey;
+
+                        Console.WriteLine("Status = " + status.AuthoritativeCopyExportSuccess + "Key = " + key);
+
+
+                        //Write the first doc to file
+                        string encryptedFile = @"c:\temp\authcopy\Testdoc.dat";
+                        string decryptedFile = @"c:\temp\authcopy\Testdoc.pdf";
+                        File.WriteAllBytes(encryptedFile, doc1);
+
+                        //Decrypte the file using the key that was returned from AcknowledgeAuthoritativeCopyExport()
+                        Decrypt(status.ExportKey, encryptedFile, decryptedFile);
+
+                         Console.WriteLine("Success: new file " + decryptedFile);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                   
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("EnvelopeId should be 32 characters. Current is " + envelopeId.Trim().Length.ToString());
+                }
+            }
+
+
+        }
+
+        public static void Decrypt(string exportKey, string inputFile, string outputFile)
+        {
+            try
+            {
+                //string inputFile = @"C:\Users\brandon.schnierer\source\repos\decrypTest\test.pdf";
+                //string outputFile = @"C:\Users\brandon.schnierer\source\repos\decrypTest\testNew.pdf";
+                byte[] exportKeyBytes = System.Text.Encoding.UTF8.GetBytes(exportKey);
+                byte[] ivBytes = new byte[exportKey.Length];
+                Array.Copy(exportKeyBytes, ivBytes, exportKey.Length);
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+                RMCrypto.Mode = CipherMode.CBC;
+                RMCrypto.Padding = PaddingMode.PKCS7;
+                RMCrypto.KeySize = 128;
+                RMCrypto.BlockSize = 128;
+
+                ICryptoTransform transform = RMCrypto.CreateDecryptor(exportKeyBytes, ivBytes);
+
+                FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+                CryptoStream cs = new CryptoStream(fsCrypt, transform, CryptoStreamMode.Read);
+
+                FileStream fsOut = new FileStream(outputFile, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+
+                int data;
+                while ((data = cs.ReadByte()) != -1)
+                    fsOut.WriteByte((byte)data);
+
+                fsOut.Close();
+                cs.Close();
+                fsCrypt.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("***********" + ex.Message);
+            }
+        }
+    }
+}
